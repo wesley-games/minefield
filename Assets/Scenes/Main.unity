@@ -225,10 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8009569435496503645, guid: 3336c9c34ce0d22999b40767c9cb3654,
     type: 3}
-  minX: -4.5
-  maxX: 4.5
-  minY: -4.5
-  maxY: 4.5
+  fieldSize: 10
+  amountBombs: 10
 --- !u!4 &988858912
 Transform:
   m_ObjectHideFlags: 0
@@ -309,11 +307,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435351927423900388, guid: 3336c9c34ce0d22999b40767c9cb3654,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3336c9c34ce0d22999b40767c9cb3654, type: 3}
