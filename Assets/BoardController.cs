@@ -15,8 +15,15 @@ public class BoardController : MonoBehaviour
     // private float maxX = 4.5f;
     // private float minY = -4.5f;
 
+    private SpritesController sprites;
     private int[,] mineField;
     private GameObject[,] screenField;
+
+    void Awake()
+    {
+        sprites = GetComponent<SpritesController>();
+
+    }
 
     void OnEnable()
     {
@@ -33,6 +40,9 @@ public class BoardController : MonoBehaviour
         InitializeScreenField();
         InitializeMineField();
         SetBombs();
+
+        // TEST
+        // OpenAllBombs();
     }
 
     void InitializeScreenField()
@@ -46,9 +56,8 @@ public class BoardController : MonoBehaviour
             for (int i = 0; i < fieldSize; i++, x += incrementX)
             {
                 GameObject tile = Instantiate(tilePrefab, new Vector2(x, y), Quaternion.identity);
-                TileController tileController = tile.GetComponent<TileController>();
-                tileController.SetPosition(i, j);
-                screenField[i, j] = tile;
+                tile.GetComponent<TileController>().SetPosition(j, i);
+                screenField[j, i] = tile;
             }
         }
     }
@@ -75,14 +84,72 @@ public class BoardController : MonoBehaviour
             if (mineField[i, j] != 1)
             {
                 mineField[i, j] = 1;
-                // método usado pra teste, provavelmente as bombas só existirão em mineField
-                screenField[i, j].GetComponent<TileController>().SetBomb();
             }
         }
     }
 
     void OnTileClicked(int i, int j)
     {
-        Debug.Log(i + " - " + j);
+        switch (mineField[i, j])
+        {
+            case 0:
+                CountBombsAround(i, j);
+                break;
+            case 1:
+                OpenAllBombs();
+                break;
+        }
+    }
+
+    void OpenAllBombs()
+    {
+        for (int i = 0; i < fieldSize; i++)
+        {
+            for (int j = 0; j < fieldSize; j++)
+            {
+                if (mineField[i, j] == 1)
+                {
+                    screenField[i, j].GetComponent<TileController>().SetNewTile(sprites.getBombTile());
+                }
+            }
+        }
+    }
+
+    void CountBombsAround(int i, int j)
+    {
+        int bombsCount = 0;
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                int ix = i + x;
+                int jy = j + y;
+                if ((ix >= 0 && jy >= 0 && ix < fieldSize && jy < fieldSize) && mineField[ix, jy] == 1)
+                {
+                    bombsCount++;
+                }
+            }
+        }
+        screenField[i, j].GetComponent<TileController>().SetNewTile(sprites.getNumberTile(bombsCount));
+        if (bombsCount == 0)
+        {
+            OpenTiles(i, j);
+        }
+    }
+
+    void OpenTiles(int i, int j)
+    {
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                int ix = i + x;
+                int jy = j + y;
+                if ((ix >= 0 && jy >= 0 && ix < fieldSize && jy < fieldSize) && !screenField[ix, jy].GetComponent<TileController>().isOpened)
+                {
+                    CountBombsAround(ix, jy);
+                }
+            }
+        }
     }
 }

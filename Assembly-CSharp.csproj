@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BoardController.cs" />
+     <Compile Include="Assets\SpritesController.cs" />
      <Compile Include="Assets\TileController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/wesle/Documents/UnityProjects/minefield/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

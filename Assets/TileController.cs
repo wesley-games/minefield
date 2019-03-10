@@ -11,8 +11,6 @@ public class TileController : MonoBehaviour
     public int j { get; private set; }
 
     public bool isOpened = false;
-    // TODO verificar necessidade dessa variável, aparentemente não tem
-    public bool hasBomb = false;
 
     public delegate void TileClicked(int i, int j);
     public static event TileClicked OnTileClicked;
@@ -23,17 +21,17 @@ public class TileController : MonoBehaviour
         this.j = j;
     }
 
-    public void SetBomb()
+    public void SetNewTile(Sprite newTile)
     {
-        this.hasBomb = true;
+        isOpened = true;
+        tileClosed.SetActive(false);
+        tileOpened.GetComponent<SpriteRenderer>().sprite = newTile;
     }
 
     void OnMouseDown()
     {
         if (!isOpened)
         {
-            isOpened = true;
-            tileClosed.SetActive(false);
             OnTileClicked(i, j);
         }
     }
