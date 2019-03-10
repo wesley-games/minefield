@@ -17,7 +17,17 @@ public class BoardController : MonoBehaviour
 
     private int[,] mineField;
     private GameObject[,] screenField;
-    
+
+    void OnEnable()
+    {
+        TileController.OnTileClicked += OnTileClicked;
+    }
+
+    void OnDisable()
+    {
+        TileController.OnTileClicked -= OnTileClicked;
+    }
+
     void Start()
     {
         InitializeScreenField();
@@ -33,7 +43,7 @@ public class BoardController : MonoBehaviour
         for (int j = 0; j < fieldSize; j++, y += incrementY)
         {
             float x = minX;
-            for (int i = 0; i < fieldSize; i++, x += incrementX) 
+            for (int i = 0; i < fieldSize; i++, x += incrementX)
             {
                 GameObject tile = Instantiate(tilePrefab, new Vector2(x, y), Quaternion.identity);
                 TileController tileController = tile.GetComponent<TileController>();
@@ -62,12 +72,17 @@ public class BoardController : MonoBehaviour
         {
             int i = Random.Range(0, fieldSize);
             int j = Random.Range(0, fieldSize);
-            if (mineField[i,j] != 1)
+            if (mineField[i, j] != 1)
             {
-                mineField[i,j] = 1;
+                mineField[i, j] = 1;
                 // método usado pra teste, provavelmente as bombas só existirão em mineField
-                screenField[i,j].GetComponent<TileController>().SetBomb();
-            } 
+                screenField[i, j].GetComponent<TileController>().SetBomb();
+            }
         }
+    }
+
+    void OnTileClicked(int i, int j)
+    {
+        Debug.Log(i + " - " + j);
     }
 }

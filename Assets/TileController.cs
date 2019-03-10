@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
+    public GameObject tileClosed;
+    public GameObject tileOpened;
+
     public int i { get; private set; }
     public int j { get; private set; }
+
+    public bool isOpened = false;
     // TODO verificar necessidade dessa variável, aparentemente não tem
     public bool hasBomb = false;
+
+    public delegate void TileClicked(int i, int j);
+    public static event TileClicked OnTileClicked;
 
     public void SetPosition(int i, int j)
     {
@@ -22,6 +30,11 @@ public class TileController : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log("clicado: " + i + ", " + j);
+        if (!isOpened)
+        {
+            isOpened = true;
+            tileClosed.SetActive(false);
+            OnTileClicked(i, j);
+        }
     }
 }

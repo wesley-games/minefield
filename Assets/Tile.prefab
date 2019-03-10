@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3621584320671574414}
   m_Layer: 0
   m_Name: TileClosed
-  m_TagString: Untagged
+  m_TagString: TileClosed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1941215029146895647
 Transform:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2352432050959248689}
   m_Layer: 0
   m_Name: TileOpened
-  m_TagString: Untagged
+  m_TagString: TileOpened
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,3 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08be97e84b93cd5029e3f45938b00c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileClosed: {fileID: 4435351927423900388}
+  tileOpened: {fileID: 7343048535421856990}
+  hasBomb: 0
