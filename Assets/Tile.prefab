@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: afbf101dbbeec7fefbd45bbe2ac3dce6, type: 3}
+  m_Sprite: {fileID: 21300018, guid: 4e7843fd2aa949a49a86c615179767ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8009569435496503645
@@ -232,4 +232,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileClosed: {fileID: 4435351927423900388}
   tileOpened: {fileID: 7343048535421856990}
-  hasBomb: 0
+  isOpened: 0

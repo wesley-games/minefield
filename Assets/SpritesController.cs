@@ -22,6 +22,11 @@ public class SpritesController : MonoBehaviour
         return tileBomb;
     }
 
+    public Sprite getFlagTile()
+    {
+        return tileFlag;
+    }
+
     public Sprite getNumberTile(int number)
     {
         switch (number)

@@ -15,6 +15,9 @@ public class TileController : MonoBehaviour
     public delegate void TileClicked(int i, int j);
     public static event TileClicked OnTileClicked;
 
+    public delegate void TileRightClicked(int i, int j);
+    public static event TileRightClicked OnTileRightClicked;
+
     public void SetPosition(int i, int j)
     {
         this.i = i;
@@ -26,13 +29,18 @@ public class TileController : MonoBehaviour
         isOpened = true;
         tileClosed.SetActive(false);
         tileOpened.GetComponent<SpriteRenderer>().sprite = newTile;
+        tileOpened.GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.4f, 0.6f);
     }
 
-    void OnMouseDown()
+    void OnMouseOver()
     {
-        if (!isOpened)
+        if (Input.GetMouseButtonDown(0) && !isOpened)
         {
             OnTileClicked(i, j);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            OnTileRightClicked(i, j);
         }
     }
 }

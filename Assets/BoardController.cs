@@ -22,17 +22,18 @@ public class BoardController : MonoBehaviour
     void Awake()
     {
         sprites = GetComponent<SpritesController>();
-
     }
 
     void OnEnable()
     {
         TileController.OnTileClicked += OnTileClicked;
+        TileController.OnTileRightClicked += OnTileRightClicked;
     }
 
     void OnDisable()
     {
         TileController.OnTileClicked -= OnTileClicked;
+        TileController.OnTileRightClicked -= OnTileRightClicked;
     }
 
     void Start()
@@ -77,14 +78,31 @@ public class BoardController : MonoBehaviour
 
     void SetBombs()
     {
-        for (int bombs = 0; bombs < amountBombs; bombs++)
+        for (int bombs = 0; bombs < amountBombs; )
         {
             int i = Random.Range(0, fieldSize);
             int j = Random.Range(0, fieldSize);
             if (mineField[i, j] != 1)
             {
                 mineField[i, j] = 1;
+                bombs++;
             }
+        }
+    }
+
+    void CheckIfWin()
+    {
+        int tilesNotOpened = 0;
+        foreach (GameObject tile in screenField)
+        {
+            if (!tile.GetComponent<TileController>().isOpened)
+            {
+                tilesNotOpened++;
+            }
+        }
+        if (tilesNotOpened == amountBombs)
+        {
+            Debug.Log("Ganhou");
         }
     }
 
@@ -94,11 +112,18 @@ public class BoardController : MonoBehaviour
         {
             case 0:
                 CountBombsAround(i, j);
+                CheckIfWin();
                 break;
             case 1:
                 OpenAllBombs();
+                Debug.Log("Perdeu");
                 break;
         }
+    }
+
+    void OnTileRightClicked(int i, int j)
+    {
+        screenField[i, j].GetComponent<TileController>().SetNewTile(sprites.getFlagTile());
     }
 
     void OpenAllBombs()
