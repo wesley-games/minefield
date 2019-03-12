@@ -123,7 +123,7 @@ public class BoardController : MonoBehaviour
 
     void OnTileRightClicked(int i, int j)
     {
-        screenField[i, j].GetComponent<TileController>().SetNewTile(sprites.getFlagTile());
+        screenField[i, j].GetComponent<TileController>().ToggleFlag(sprites.getFlagTile());
     }
 
     void OpenAllBombs()

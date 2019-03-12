@@ -18,6 +18,9 @@ public class TileController : MonoBehaviour
     public delegate void TileRightClicked(int i, int j);
     public static event TileRightClicked OnTileRightClicked;
 
+    private bool isFlagged = false;
+    private Sprite spriteClosed;
+
     public void SetPosition(int i, int j)
     {
         this.i = i;
@@ -29,7 +32,19 @@ public class TileController : MonoBehaviour
         isOpened = true;
         tileClosed.SetActive(false);
         tileOpened.GetComponent<SpriteRenderer>().sprite = newTile;
-        tileOpened.GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.4f, 0.6f);
+    }
+
+    public void ToggleFlag(Sprite tileFlag)
+    {
+        if (!isFlagged)
+        {
+            this.spriteClosed = tileClosed.GetComponent<SpriteRenderer>().sprite;
+            tileClosed.GetComponent<SpriteRenderer>().sprite = tileFlag;
+        } else
+        {
+            tileClosed.GetComponent<SpriteRenderer>().sprite = this.spriteClosed;
+        }
+        isFlagged = !isFlagged;
     }
 
     void OnMouseOver()
