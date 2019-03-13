@@ -13,10 +13,10 @@ public class TileController : MonoBehaviour
     public bool isOpened = false;
 
     public delegate void TileClicked(int i, int j);
-    public static event TileClicked OnTileClicked;
+    public static event TileClicked OnTileClicked = delegate { };
 
     public delegate void TileRightClicked(int i, int j);
-    public static event TileRightClicked OnTileRightClicked;
+    public static event TileRightClicked OnTileRightClicked = delegate { };
 
     private bool isFlagged = false;
     private Sprite spriteClosed;
@@ -40,7 +40,8 @@ public class TileController : MonoBehaviour
         {
             this.spriteClosed = tileClosed.GetComponent<SpriteRenderer>().sprite;
             tileClosed.GetComponent<SpriteRenderer>().sprite = tileFlag;
-        } else
+        }
+        else
         {
             tileClosed.GetComponent<SpriteRenderer>().sprite = this.spriteClosed;
         }

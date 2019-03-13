@@ -12,12 +12,15 @@ public class BoardController : MonoBehaviour
     private float incrementY = -1f;
     private float minX = -4.5f;
     private float incrementX = 1f;
-    // private float maxX = 4.5f;
-    // private float minY = -4.5f;
 
     private SpritesController sprites;
     private int[,] mineField;
     private GameObject[,] screenField;
+
+    public delegate void PlayerDead();
+    public static event PlayerDead OnPlayerDead;
+    public delegate void PlayerWin();
+    public static event PlayerWin OnPlayerWin;
 
     void Awake()
     {
@@ -78,7 +81,7 @@ public class BoardController : MonoBehaviour
 
     void SetBombs()
     {
-        for (int bombs = 0; bombs < amountBombs; )
+        for (int bombs = 0; bombs < amountBombs;)
         {
             int i = Random.Range(0, fieldSize);
             int j = Random.Range(0, fieldSize);
@@ -90,7 +93,7 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    void CheckIfWin()
+    bool CheckIfWin()
     {
         int tilesNotOpened = 0;
         foreach (GameObject tile in screenField)
@@ -102,8 +105,9 @@ public class BoardController : MonoBehaviour
         }
         if (tilesNotOpened == amountBombs)
         {
-            Debug.Log("Ganhou");
+            return true;
         }
+        return false;
     }
 
     void OnTileClicked(int i, int j)
@@ -112,11 +116,14 @@ public class BoardController : MonoBehaviour
         {
             case 0:
                 CountBombsAround(i, j);
-                CheckIfWin();
+                if (CheckIfWin())
+                {
+                    OnPlayerWin();
+                }
                 break;
             case 1:
                 OpenAllBombs();
-                Debug.Log("Perdeu");
+                OnPlayerDead();
                 break;
         }
     }
