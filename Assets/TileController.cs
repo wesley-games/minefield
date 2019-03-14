@@ -18,6 +18,9 @@ public class TileController : MonoBehaviour
     public delegate void TileRightClicked(int i, int j);
     public static event TileRightClicked OnTileRightClicked = delegate { };
 
+    public delegate void TileFlagChanged(int increment);
+    public static event TileFlagChanged OnTileFlagChanged = delegate { };
+
     private bool isFlagged = false;
     private Sprite spriteClosed;
 
@@ -32,20 +35,29 @@ public class TileController : MonoBehaviour
         isOpened = true;
         tileClosed.SetActive(false);
         tileOpened.GetComponent<SpriteRenderer>().sprite = newTile;
+        if (isFlagged)
+        {
+            OnTileFlagChanged(-1);
+        }
     }
 
     public void ToggleFlag(Sprite tileFlag)
     {
-        if (!isFlagged)
+        if (!isOpened)
         {
-            this.spriteClosed = tileClosed.GetComponent<SpriteRenderer>().sprite;
-            tileClosed.GetComponent<SpriteRenderer>().sprite = tileFlag;
+            if (!isFlagged)
+            {
+                this.spriteClosed = tileClosed.GetComponent<SpriteRenderer>().sprite;
+                tileClosed.GetComponent<SpriteRenderer>().sprite = tileFlag;
+                OnTileFlagChanged(1);
+            }
+            else
+            {
+                tileClosed.GetComponent<SpriteRenderer>().sprite = this.spriteClosed;
+                OnTileFlagChanged(-1);
+            }
+            isFlagged = !isFlagged;
         }
-        else
-        {
-            tileClosed.GetComponent<SpriteRenderer>().sprite = this.spriteClosed;
-        }
-        isFlagged = !isFlagged;
     }
 
     void OnMouseOver()
