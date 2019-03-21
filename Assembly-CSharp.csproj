@@ -53,10 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BoardController.cs" />
-     <Compile Include="Assets\SpritesController.cs" />
-     <Compile Include="Assets\TileController.cs" />
-     <Compile Include="Assets\UIController.cs" />
+     <Compile Include="Assets\Scripts\BoardController.cs" />
+     <Compile Include="Assets\Scripts\ShakeController.cs" />
+     <Compile Include="Assets\Scripts\SpritesController.cs" />
+     <Compile Include="Assets\Scripts\TileController.cs" />
+     <Compile Include="Assets\Scripts\UIController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/wesle/Documents/UnityProjects/minefield/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
