@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TileClosed
   - TileOpened
+  - ScreenShake
   layers:
   - Default
   - TransparentFX
