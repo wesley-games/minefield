@@ -8,6 +8,10 @@ public class BoardController : MonoBehaviour
     public int fieldSize = 10;
     public int amountBombs = 10;
 
+    public GameObject musicSound;
+    private GameObject musicSoundClone;
+    public GameObject bombSound;
+
     private float maxY = 4.5f;
     private float incrementY = -1f;
     private float minX = -4.5f;
@@ -25,6 +29,7 @@ public class BoardController : MonoBehaviour
 
     void Awake()
     {
+        musicSoundClone = Instantiate(musicSound, gameObject.transform.position, Quaternion.identity);
         sprites = GetComponent<SpritesController>();
     }
 
@@ -47,9 +52,6 @@ public class BoardController : MonoBehaviour
         InitializeScreenField();
         InitializeMineField();
         SetBombs();
-
-        // TEST
-        // OpenAllBombs();
     }
 
     void InitializeScreenField()
@@ -125,6 +127,8 @@ public class BoardController : MonoBehaviour
                 }
                 break;
             case 1:
+                Destroy(musicSoundClone);
+                Instantiate(bombSound, gameObject.transform.position, Quaternion.identity);
                 OpenAllBombs();
                 OnPlayerDead();
                 break;

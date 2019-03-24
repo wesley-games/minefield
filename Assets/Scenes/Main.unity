@@ -670,6 +670,10 @@ MonoBehaviour:
     type: 3}
   fieldSize: 10
   amountBombs: 10
+  musicSound: {fileID: 6323943090022268057, guid: 1be62e5966e7f704ea1c5d8410dcf8ef,
+    type: 3}
+  bombSound: {fileID: 885645318280244237, guid: d8cd95850b7c4514493d0fed07a6b1a6,
+    type: 3}
 --- !u!4 &988858912
 Transform:
   m_ObjectHideFlags: 0
